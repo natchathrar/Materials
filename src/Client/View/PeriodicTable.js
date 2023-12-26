@@ -19,7 +19,7 @@ const PeriodicTable = () => {
     return (
         <>
             <div className='periodic-table-container'>
-                <h1 className='table-title'>Periodic Table of Elements</h1>
+                <h3 className='table-title mt-5'>Periodic Table of Elements</h3>
                 <div className="periodic-table ">
                     {data.elements.map((element) => (
                         <div
