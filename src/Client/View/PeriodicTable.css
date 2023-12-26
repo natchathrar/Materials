@@ -1,0 +1,102 @@
+.periodic-table {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.element {
+    width: 45px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    font-size: 10px;
+    position: relative;
+    font-weight: bold;
+}
+
+.element:hover {
+    background-color: #ddd;
+}
+
+.selected {
+    background-color: #3498db;
+    color: #fff;
+}
+
+/* 
+  .element {
+    background: white;
+    border: 1px solid #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  } */
+
+.periodic-table-container {
+    text-align: center;
+    margin-bottom: 20px;
+    width: '700px'
+}
+
+.table-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.element:hover {
+    transform: scale(1.25, 1.25);
+    z-index: 1;
+}
+
+.element .number {
+    font-size: 7px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+.element .name {
+    font-size: 7px;
+    position: absolute;
+    bottom: 5px;
+    text-wrap: wrap;
+    left: 5px;
+}
+
+/* @media only screen and (min-width: 768px) {
+    .periodic-table {
+        grid-template-columns: repeat(18, 1fr);
+    }
+
+     .element {
+        width: 60px;
+        height: 60px;
+        font-size: 16px;
+    } 
+
+.element .number,
+.element .name {
+    font-size: 10px;
+}
+}
+
+*/
+/* Media Query for Laptops and larger */
+/* @media only screen and (min-width: 1024px) {
+    .element {
+        width: 70px;
+        height: 70px;
+        font-size: 18px;
+    }
+
+    .element .number,
+    .element .name {
+        font-size: 12px;
+    }
+} */
