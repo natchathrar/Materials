@@ -29,7 +29,7 @@ const MaterialsSearch = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const apiKey = '0ePIMk5guZjI37IWmJXDScFAEEdInUzn'; // Replace your api key
+                const apiKey = 'YOUR_API_KEY'; // Replace your api key
 
                 const response = await fetch(
                     `http://localhost:9000/materials/summary/?_limit=15&_skip=0&chemsys=Si-O-K&deprecated=false&_fields=theoretical%2Cmaterial_id%2Cformula_pretty%2Csymmetry.crystal_system%2Csymmetry.symbol%2Csymmetry.number%2Cnsites%2Cenergy_above_hull%2Cformation_energy_per_atom%2Cis_stable%2Cvolume%2Cdensity%2Cband_gap%2Cis_gap_direct%2Cis_metal%2Cordering%2Ctotal_magnetization%2Ck_voigt%2Ck_reuss%2Ck_vrh%2Cg_voigt%2Cg_reuss%2Cg_vrh%2Cuniversal_anisotropy%2Cweighted_surface_energy%2Csurface_anisotropy%2Cshape_factor%2Cweighted_work_function%2Ce_ij_max%2Ce_total%2Ce_ionic%2Ce_static`,
