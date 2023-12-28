@@ -3,9 +3,9 @@ import DataTable from 'react-data-table-component';
 import { Input, Select } from 'antd';
 import Loader from './Layouts/Loader';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
-const MaterialsSearch = () => {
+
+const MoleculeSearch = () => {
     const [materials, setMaterials] = useState([]);
     const [filteredMaterials, setFilteredMaterials] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -13,11 +13,9 @@ const MaterialsSearch = () => {
     const handleSearch = (value) => {
         const filteredData = materials.filter((material) => {
             return (
-                material.material_id.toLowerCase().includes(value.toLowerCase()) ||
-                material.formula_pretty.toLowerCase().includes(value.toLowerCase()) ||
-                material.symmetry.crystal_system.toLowerCase().includes(value.toLowerCase()) ||
-                material.symmetry.symbol.toLowerCase().includes(value.toLowerCase()) ||
-                material.symmetry.number.toString().includes(value)
+                material.molecule_id.toLowerCase().includes(value.toLowerCase()) ||
+                material.formula_alphabetical.toLowerCase().includes(value.toLowerCase()) ||
+                material.charge.toLowerCase().includes(value.toLowerCase())
             );
         });
         console.log('Filtered Data:', filteredData);
@@ -25,14 +23,14 @@ const MaterialsSearch = () => {
     };
 
 
-
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             try {
                 const apiKey = '0ePIMk5guZjI37IWmJXDScFAEEdInUzn'; // Replace your api key
 
                 const response = await fetch(
-                    `http://localhost:9000/materials/summary/?_limit=15&_skip=0&chemsys=Si-O-K&deprecated=false&_fields=theoretical%2Cmaterial_id%2Cformula_pretty%2Csymmetry.crystal_system%2Csymmetry.symbol%2Csymmetry.number%2Cnsites%2Cenergy_above_hull%2Cformation_energy_per_atom%2Cis_stable%2Cvolume%2Cdensity%2Cband_gap%2Cis_gap_direct%2Cis_metal%2Cordering%2Ctotal_magnetization%2Ck_voigt%2Ck_reuss%2Ck_vrh%2Cg_voigt%2Cg_reuss%2Cg_vrh%2Cuniversal_anisotropy%2Cweighted_surface_energy%2Csurface_anisotropy%2Cshape_factor%2Cweighted_work_function%2Ce_ij_max%2Ce_total%2Ce_ionic%2Ce_static`,
+                    `http://localhost:9000/molecules/summary/?_fields=molecule_id%2Cformula_alphabetical%2Celectron_affinity%2Cionization_energy%2Ccharge%2Cspin_multiplicity`,
                     {
                         headers: {
                             'X-Api-Key': apiKey,
@@ -46,10 +44,9 @@ const MaterialsSearch = () => {
                     const res = data.data;
                     setFilteredMaterials(res || []);
                     setMaterials(res || []);
-                    toast.success('Get successfully')
+                    toast.success('Molecules get successfully')
                 } else {
                     console.error('Failed to fetch materials:', response.statusText);
-                    toast.error('Failed to get data. Check console for details.');
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -66,28 +63,18 @@ const MaterialsSearch = () => {
 
     const columns = [
         {
-            name: 'Material ID',
-            selector: 'material_id',
+            name: 'Molecule ID',
+            selector: 'molecule_id',
             sortable: true,
         },
         {
             name: 'Formula',
-            selector: 'formula_pretty',
+            selector: 'formula_alphabetical',
             sortable: true,
         },
         {
-            name: 'Crystal System',
-            selector: 'symmetry.crystal_system',
-            sortable: true,
-        },
-        {
-            name: 'Symbol',
-            selector: 'symmetry.symbol',
-            sortable: true,
-        },
-        {
-            name: 'Element Number',
-            selector: 'symmetry.number',
+            name: 'Charge',
+            selector: 'charge',
             sortable: true,
         },
     ];
@@ -97,7 +84,7 @@ const MaterialsSearch = () => {
             <div className='mt-5'>
                 <div className='d-flex justify-content-center align-items-center mt-5'>
                     <Search
-                        placeholder='Search by Formula, Number, Symbol'
+                        placeholder='Search by formula,element_id,charge'
                         prefix={<i className='bx bx-search fs-6'></i>}
                         className='w-75 text-center'
                         enterButton='Search'
@@ -105,7 +92,6 @@ const MaterialsSearch = () => {
                         onSearch={handleSearch}
                     />
                 </div>
-
 
                 <div className='container m-5 card' style={{ zIndex: '1' }}>
                     <DataTable columns={columns} data={filteredMaterials} pagination progressPending={loading} persistTableHead progressComponent={<Loader />} />
@@ -127,4 +113,4 @@ const MaterialsSearch = () => {
     );
 };
 
-export default MaterialsSearch;
+export default MoleculeSearch;
